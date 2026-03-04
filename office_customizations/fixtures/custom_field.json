@@ -1,0 +1,25 @@
+[
+ {
+  "doctype": "Custom Field",
+  "dt": "Work Order",
+  "fieldname": "custom_team_assignment_tab",
+  "fieldtype": "Tab Break",
+  "insert_after": "amended_from",
+  "label": "Team Assignment",
+  "module": "Office customisation",
+  "name": "Work Order-custom_team_assignment_tab",
+  "allow_on_submit": 1
+ },
+ {
+  "doctype": "Custom Field",
+  "dt": "Work Order",
+  "fieldname": "custom_team_members",
+  "fieldtype": "Table",
+  "insert_after": "custom_team_assignment_tab",
+  "label": "Team Members",
+  "module": "Office customisation",
+  "name": "Work Order-custom_team_members",
+  "options": "Work Order Team Member",
+  "allow_on_submit": 1
+ }
+]

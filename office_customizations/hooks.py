@@ -5,6 +5,13 @@ app_description = "OC"
 app_email = "raghavbansalca@gmail.com"
 app_license = "mit"
 
+fixtures = [
+	{
+		"dt": "Custom Field",
+		"filters": [["module", "=", "Office customisation"]],
+	}
+]
+
 # Apps
 # ------------------
 
@@ -43,7 +50,7 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Work Order" : "public/js/work_order.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
