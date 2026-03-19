@@ -1,0 +1,116 @@
+{
+ "actions": [],
+ "autoname": "field:template_name",
+ "creation": "2026-03-20 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "template_name",
+  "event_type",
+  "enabled",
+  "cb_1",
+  "channel",
+  "sb_content",
+  "subject",
+  "message",
+  "sb_help",
+  "available_variables"
+ ],
+ "fields": [
+  {
+   "fieldname": "template_name",
+   "fieldtype": "Data",
+   "label": "Template Name",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1,
+   "description": "e.g., Task Overdue Reminder, Timesheet Missing Nudge"
+  },
+  {
+   "fieldname": "event_type",
+   "fieldtype": "Select",
+   "label": "Event Type",
+   "options": "\nTask Overdue\nTask Due Today\nTask Due This Week\nTask Assigned\nTask Status Changed\nTask Completed\nTask Escalation Level 1\nTask Escalation Level 2\nTimesheet Missing\nTimesheet Incomplete\nWeekly Manager Digest\nMonthly Statutory Tasks Created\nCustom",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "The automation event that triggers this notification"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "All",
+   "fieldname": "channel",
+   "fieldtype": "Select",
+   "label": "Send Via",
+   "options": "ERPNext\nTelegram\nAll",
+   "in_list_view": 1,
+   "description": "Which channel(s) to use. 'All' respects user's preference."
+  },
+  {
+   "fieldname": "sb_content",
+   "fieldtype": "Section Break",
+   "label": "Message Content"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject",
+   "reqd": 1,
+   "description": "Jinja2 template. Variables: {{ task_name }}, {{ assignee }}, {{ due_date }}, {{ project }}, etc."
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Text",
+   "label": "Message Body",
+   "reqd": 1,
+   "description": "Jinja2 template for the notification body. Supports all context variables."
+  },
+  {
+   "fieldname": "sb_help",
+   "fieldtype": "Section Break",
+   "label": "Help",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "available_variables",
+   "fieldtype": "HTML",
+   "label": "Available Variables",
+   "options": "<div style='padding:10px; background:#f5f7fa; border-radius:4px; font-size:12px;'><b>Common Variables:</b><br><code>{{ task_name }}</code> - Task subject<br><code>{{ task_id }}</code> - Task ID (e.g., TASK-00123)<br><code>{{ assignee }}</code> - Assigned user's full name<br><code>{{ assignee_email }}</code> - Assigned user's email<br><code>{{ project }}</code> - Project name<br><code>{{ due_date }}</code> - Due date<br><code>{{ days_overdue }}</code> - Number of days overdue<br><code>{{ priority }}</code> - Task priority<br><code>{{ status }}</code> - Task status<br><code>{{ manager }}</code> - Reporting manager's name<br><code>{{ total_hours }}</code> - Hours logged (timesheets)<br><code>{{ expected_hours }}</code> - Expected hours<br><code>{{ date }}</code> - Current date<br><code>{{ site_url }}</code> - ERPNext site URL</div>"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-03-20 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Office customisation",
+ "name": "Notification Template",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "template_name"
+}

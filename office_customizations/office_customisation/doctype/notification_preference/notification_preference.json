@@ -1,0 +1,160 @@
+{
+ "actions": [],
+ "autoname": "field:user",
+ "creation": "2026-03-20 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "user_full_name",
+  "enabled",
+  "cb_1",
+  "primary_channel",
+  "sb_telegram",
+  "telegram_chat_id",
+  "sb_quiet_hours",
+  "override_quiet_hours",
+  "quiet_hours_start",
+  "quiet_hours_end",
+  "sb_preferences",
+  "receive_task_reminders",
+  "receive_timesheet_reminders",
+  "receive_escalations",
+  "receive_weekly_digest"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fetch_from": "user.full_name",
+   "fieldname": "user_full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "ERPNext",
+   "fieldname": "primary_channel",
+   "fieldtype": "Select",
+   "label": "Preferred Channel",
+   "options": "ERPNext\nTelegram\nAll",
+   "in_list_view": 1,
+   "description": "Where this user prefers to receive notifications"
+  },
+  {
+   "fieldname": "sb_telegram",
+   "fieldtype": "Section Break",
+   "label": "Telegram Settings",
+   "depends_on": "eval:doc.primary_channel == 'Telegram' || doc.primary_channel == 'All'"
+  },
+  {
+   "fieldname": "telegram_chat_id",
+   "fieldtype": "Data",
+   "label": "Telegram Chat ID",
+   "description": "User's Telegram chat ID (they must /start the notification bot first to get this)"
+  },
+  {
+   "fieldname": "sb_quiet_hours",
+   "fieldtype": "Section Break",
+   "label": "Quiet Hours Override",
+   "collapsible": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "override_quiet_hours",
+   "fieldtype": "Check",
+   "label": "Override Global Quiet Hours",
+   "description": "Set custom quiet hours for this user (overrides global settings)"
+  },
+  {
+   "fieldname": "quiet_hours_start",
+   "fieldtype": "Time",
+   "label": "Quiet Hours Start",
+   "depends_on": "eval:doc.override_quiet_hours"
+  },
+  {
+   "fieldname": "quiet_hours_end",
+   "fieldtype": "Time",
+   "label": "Quiet Hours End",
+   "depends_on": "eval:doc.override_quiet_hours"
+  },
+  {
+   "fieldname": "sb_preferences",
+   "fieldtype": "Section Break",
+   "label": "Notification Preferences"
+  },
+  {
+   "default": "1",
+   "fieldname": "receive_task_reminders",
+   "fieldtype": "Check",
+   "label": "Receive Task Reminders",
+   "description": "Daily overdue/due-today/due-this-week reminders"
+  },
+  {
+   "default": "1",
+   "fieldname": "receive_timesheet_reminders",
+   "fieldtype": "Check",
+   "label": "Receive Timesheet Reminders",
+   "description": "Daily nudge if timesheet hours are below minimum"
+  },
+  {
+   "default": "1",
+   "fieldname": "receive_escalations",
+   "fieldtype": "Check",
+   "label": "Receive Escalation Alerts",
+   "description": "Alerts when tasks assigned to you are escalated"
+  },
+  {
+   "default": "1",
+   "fieldname": "receive_weekly_digest",
+   "fieldtype": "Check",
+   "label": "Receive Weekly Digest",
+   "description": "Monday morning summary of tasks and timesheets"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-03-20 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Office customisation",
+ "name": "Notification Preference",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "user_full_name"
+}

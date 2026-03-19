@@ -12,6 +12,11 @@ fixtures = [
 	}
 ]
 
+# Auto-clear old notification logs (keep 90 days)
+default_log_clearing_doctypes = {
+	"Notification Log OC": 90,
+}
+
 # Apps
 # ------------------
 
@@ -139,34 +144,23 @@ doctype_js = {"Work Order" : "public/js/work_order.js"}
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Task": {
+		"on_update": "office_customizations.office_customisation.automation.scheduler.on_task_update",
+	}
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"office_customizations.tasks.all"
-# 	],
-# 	"daily": [
-# 		"office_customizations.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"office_customizations.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"office_customizations.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"office_customizations.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"daily_long": [
+		"office_customizations.office_customisation.automation.scheduler.run_daily_notifications",
+	],
+	"weekly_long": [
+		"office_customizations.office_customisation.automation.scheduler.run_weekly_digest",
+	],
+}
 
 # Testing
 # -------

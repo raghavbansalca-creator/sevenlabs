@@ -1,0 +1,150 @@
+{
+ "actions": [],
+ "creation": "2026-03-20 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "default_channel",
+  "sb_telegram",
+  "telegram_enabled",
+  "telegram_bot_token",
+  "telegram_bot_username",
+  "sb_quiet_hours",
+  "quiet_hours_enabled",
+  "quiet_hours_start",
+  "quiet_hours_end",
+  "sb_escalation",
+  "escalation_enabled",
+  "level_1_delay_hours",
+  "level_2_delay_hours",
+  "final_escalation_user"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Notification Engine Enabled",
+   "description": "Master switch to enable/disable all automated notifications"
+  },
+  {
+   "default": "ERPNext",
+   "fieldname": "default_channel",
+   "fieldtype": "Select",
+   "label": "Default Notification Channel",
+   "options": "ERPNext\nTelegram\nAll",
+   "reqd": 1,
+   "description": "Default channel when user has no preference set"
+  },
+  {
+   "fieldname": "sb_telegram",
+   "fieldtype": "Section Break",
+   "label": "Telegram Configuration"
+  },
+  {
+   "default": "0",
+   "fieldname": "telegram_enabled",
+   "fieldtype": "Check",
+   "label": "Enable Telegram Notifications"
+  },
+  {
+   "fieldname": "telegram_bot_token",
+   "fieldtype": "Password",
+   "label": "Telegram Bot Token",
+   "description": "Token from @BotFather for the notification bot (NOT your personal slv-bot)",
+   "depends_on": "eval:doc.telegram_enabled"
+  },
+  {
+   "fieldname": "telegram_bot_username",
+   "fieldtype": "Data",
+   "label": "Bot Username",
+   "description": "e.g., @slv_notify_bot (for reference only)",
+   "depends_on": "eval:doc.telegram_enabled"
+  },
+  {
+   "fieldname": "sb_quiet_hours",
+   "fieldtype": "Section Break",
+   "label": "Quiet Hours"
+  },
+  {
+   "default": "1",
+   "fieldname": "quiet_hours_enabled",
+   "fieldtype": "Check",
+   "label": "Enable Global Quiet Hours",
+   "description": "Suppress Telegram notifications during quiet hours (ERPNext notifications still go through)"
+  },
+  {
+   "default": "21:00:00",
+   "fieldname": "quiet_hours_start",
+   "fieldtype": "Time",
+   "label": "Quiet Hours Start",
+   "description": "No Telegram notifications after this time",
+   "depends_on": "eval:doc.quiet_hours_enabled"
+  },
+  {
+   "default": "09:00:00",
+   "fieldname": "quiet_hours_end",
+   "fieldtype": "Time",
+   "label": "Quiet Hours End",
+   "description": "Resume Telegram notifications at this time",
+   "depends_on": "eval:doc.quiet_hours_enabled"
+  },
+  {
+   "fieldname": "sb_escalation",
+   "fieldtype": "Section Break",
+   "label": "Default Escalation Settings"
+  },
+  {
+   "default": "1",
+   "fieldname": "escalation_enabled",
+   "fieldtype": "Check",
+   "label": "Enable Escalation Engine"
+  },
+  {
+   "default": "24",
+   "fieldname": "level_1_delay_hours",
+   "fieldtype": "Int",
+   "label": "Level 1 Escalation (hours overdue)",
+   "description": "Hours after which overdue task is escalated to project manager"
+  },
+  {
+   "default": "48",
+   "fieldname": "level_2_delay_hours",
+   "fieldtype": "Int",
+   "label": "Level 2 Escalation (hours overdue)",
+   "description": "Hours after which overdue task is escalated to partner"
+  },
+  {
+   "fieldname": "final_escalation_user",
+   "fieldtype": "Link",
+   "label": "Final Escalation To",
+   "options": "User",
+   "description": "User who receives Level 2 escalations (typically CA Raghav Bansal)"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-03-20 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Office customisation",
+ "name": "SLV Notification Settings",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
