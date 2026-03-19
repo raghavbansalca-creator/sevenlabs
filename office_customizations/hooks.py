@@ -146,7 +146,8 @@ doctype_js = {"Work Order" : "public/js/work_order.js"}
 
 doc_events = {
 	"Task": {
-		"on_update": "office_customizations.office_customisation.automation.scheduler.on_task_update",
+		"on_update": "office_customizations.office_customisation.doc_events.task_events.on_update",
+		"after_insert": "office_customizations.office_customisation.doc_events.task_events.after_insert",
 	}
 }
 
@@ -154,11 +155,26 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
+	"cron": {
+		# Phase 2: Daily task follow-up at 9 AM
+		"0 9 * * *": [
+			"office_customizations.office_customisation.automation.task_followup.run",
+		],
+		# Phase 2: Timesheet compliance check at 6 PM
+		"0 18 * * *": [
+			"office_customizations.office_customisation.automation.timesheet_compliance.run",
+		],
+		# Phase 2: Stuck task scanner every 4 hours
+		"0 */4 * * *": [
+			"office_customizations.office_customisation.doc_events.task_events.scan_stuck_tasks",
+		],
+		# Phase 1: Weekly digest on Monday 8 AM
+		"0 8 * * 1": [
+			"office_customizations.office_customisation.automation.scheduler.run_weekly_digest",
+		],
+	},
 	"daily_long": [
 		"office_customizations.office_customisation.automation.scheduler.run_daily_notifications",
-	],
-	"weekly_long": [
-		"office_customizations.office_customisation.automation.scheduler.run_weekly_digest",
 	],
 }
 
