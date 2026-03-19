@@ -516,3 +516,25 @@ def run_weekly_digest():
         send_weekly_digest()
     except Exception:
         frappe.log_error("Weekly: send_weekly_digest failed", "SLV Scheduler")
+
+
+# ── Whitelisted Test Trigger (for manual testing) ────────────────────────────
+
+@frappe.whitelist()
+def trigger_daily_notifications():
+    """Manually trigger daily notifications for testing. System Manager only."""
+    if "System Manager" not in frappe.get_roles():
+        frappe.throw("Only System Manager can trigger notifications manually")
+    run_daily_notifications()
+    frappe.db.commit()
+    return {"status": "ok", "message": "Daily notifications triggered successfully"}
+
+
+@frappe.whitelist()
+def trigger_weekly_digest():
+    """Manually trigger weekly digest for testing. System Manager only."""
+    if "System Manager" not in frappe.get_roles():
+        frappe.throw("Only System Manager can trigger digest manually")
+    run_weekly_digest()
+    frappe.db.commit()
+    return {"status": "ok", "message": "Weekly digest triggered successfully"}
