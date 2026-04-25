@@ -1,0 +1,53 @@
+[
+ {
+  "allow_guest": 0,
+  "api_method": "trigger_daily_notifications",
+  "cron_format": null,
+  "disabled": 0,
+  "doctype": "Server Script",
+  "doctype_event": "Before Insert",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "module": "Office customisation",
+  "name": "Trigger Daily Notifications",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": null,
+  "script": "if frappe.session.user != \"raghav.bansal@sevenlabs.in\":\n    frappe.throw(\"Only admin can trigger this\")\n\ntoday_date = frappe.utils.today()\ncount = 0\n\ndef get_task_users(task):\n    users = []\n    if task.owner and task.owner != \"Administrator\":\n        users.append(task.owner)\n    todos = frappe.get_all(\"ToDo\",\n        filters={\"reference_type\": \"Task\", \"reference_name\": task.name, \"status\": \"Open\"},\n        fields=[\"allocated_to\"])\n    for t in todos:\n        if t.allocated_to and t.allocated_to not in users:\n            users.append(t.allocated_to)\n    return users\n\ntasks_due = frappe.get_all(\"Task\",\n    filters={\"status\": [\"in\", [\"Open\", \"Working\", \"Pending Review\", \"Overdue\"]],\n             \"exp_end_date\": [\"between\", [today_date + \" 00:00:00\", today_date + \" 23:59:59\"]]},\n    fields=[\"name\", \"subject\", \"owner\"])\n\nfor task in tasks_due:\n    users = get_task_users(task)\n    for user in users:\n        nlog = frappe.new_doc(\"Notification Log\")\n        nlog.for_user = user\n        nlog.from_user = \"Administrator\"\n        nlog.subject = \"Task due today: \" + str(task.subject or task.name)\n        nlog.type = \"Alert\"\n        nlog.document_type = \"Task\"\n        nlog.document_name = task.name\n        nlog.insert(ignore_permissions=True)\n        count = count + 1\n\noverdue = frappe.get_all(\"Task\",\n    filters=[[\"status\", \"in\", [\"Open\", \"Working\", \"Pending Review\", \"Overdue\"]],\n             [\"exp_end_date\", \"<\", today_date],\n             [\"exp_end_date\", \"is\", \"set\"]],\n    fields=[\"name\", \"subject\", \"owner\"])\n\nfor task in overdue:\n    users = get_task_users(task)\n    for user in users:\n        nlog = frappe.new_doc(\"Notification Log\")\n        nlog.for_user = user\n        nlog.from_user = \"Administrator\"\n        nlog.subject = \"OVERDUE: \" + str(task.subject or task.name)\n        nlog.type = \"Alert\"\n        nlog.document_type = \"Task\"\n        nlog.document_name = task.name\n        nlog.insert(ignore_permissions=True)\n        count = count + 1\n\nif overdue:\n    nlog = frappe.new_doc(\"Notification Log\")\n    nlog.for_user = \"raghav.bansal@sevenlabs.in\"\n    nlog.from_user = \"Administrator\"\n    nlog.subject = str(len(overdue)) + \" tasks overdue - escalation\"\n    nlog.type = \"Alert\"\n    nlog.document_type = \"Task\"\n    nlog.document_name = overdue[0].name\n    nlog.insert(ignore_permissions=True)\n    count = count + 1\n\nfrappe.db.commit()\nfrappe.response[\"message\"] = \"Sent \" + str(count) + \" notifications (due_today=\" + str(len(tasks_due)) + \", overdue=\" + str(len(overdue)) + \")\"\n",
+  "script_type": "API"
+ },
+ {
+  "allow_guest": 0,
+  "api_method": "reassign_task",
+  "cron_format": null,
+  "disabled": 0,
+  "doctype": "Server Script",
+  "doctype_event": "Before Insert",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "module": "Office customisation",
+  "name": "Reassign Task API",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": null,
+  "script": "task_name = frappe.form_dict.get(\"task_name\")\nnew_assignee = frappe.form_dict.get(\"new_assignee\")\n\nif not task_name or not new_assignee:\n    frappe.response[\"message\"] = {\"success\": False, \"error\": \"task_name and new_assignee are required\"}\nelse:\n    doc = frappe.get_doc(\"Task\", task_name)\n    user = frappe.session.user\n    \n    is_owner = (doc.owner == user)\n    is_admin = frappe.db.exists(\"Has Role\", {\"parent\": user, \"role\": \"System Manager\"})\n    assign_str = frappe.db.get_value(\"Task\", task_name, \"_assign\") or \"[]\"\n    current_assigns = json.loads(assign_str)\n    is_assignee = (user in current_assigns)\n    \n    if is_owner or is_admin or is_assignee:\n        old_todos = frappe.db.get_all(\"ToDo\", filters={\"reference_type\": \"Task\", \"reference_name\": task_name, \"status\": \"Open\"}, fields=[\"name\"])\n        for todo in old_todos:\n            frappe.db.set_value(\"ToDo\", todo.name, \"status\", \"Cancelled\")\n        \n        task_subject = frappe.db.get_value(\"Task\", task_name, \"subject\") or task_name\n        new_todo = frappe.get_doc({\n            \"doctype\": \"ToDo\",\n            \"owner\": new_assignee,\n            \"allocated_to\": new_assignee,\n            \"reference_type\": \"Task\",\n            \"reference_name\": task_name,\n            \"description\": task_subject,\n            \"status\": \"Open\"\n        })\n        new_todo.insert(ignore_permissions=True)\n        \n        frappe.db.set_value(\"Task\", task_name, \"_assign\", json.dumps([new_assignee]))\n        \n        old_names = \", \".join(current_assigns) if current_assigns else \"Unassigned\"\n        new_user_name = frappe.db.get_value(\"User\", new_assignee, \"full_name\") or new_assignee\n        comment_text = \"Task reassigned from \" + old_names + \" to \" + new_user_name + \" by \" + user\n        frappe.get_doc({\n            \"doctype\": \"Comment\",\n            \"reference_doctype\": \"Task\",\n            \"reference_name\": task_name,\n            \"comment_type\": \"Info\",\n            \"content\": comment_text\n        }).insert(ignore_permissions=True)\n        \n        frappe.db.commit()\n        frappe.response[\"message\"] = {\"success\": True, \"message\": \"Task reassigned to \" + new_user_name}\n    else:\n        frappe.response[\"message\"] = {\"success\": False, \"error\": \"Only the task creator, current assignee, or admin can reassign\"}",
+  "script_type": "API"
+ },
+ {
+  "allow_guest": 0,
+  "api_method": null,
+  "cron_format": null,
+  "disabled": 0,
+  "doctype": "Server Script",
+  "doctype_event": "Before Insert",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "module": "Office customisation",
+  "name": "Block Email Queue",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "Email Queue",
+  "script": "frappe.throw(\"Email sending is disabled\")",
+  "script_type": "DocType Event"
+ }
+]

@@ -6,10 +6,11 @@ app_email = "raghavbansalca@gmail.com"
 app_license = "mit"
 
 fixtures = [
-	{
-		"dt": "Custom Field",
-		"filters": [["module", "=", "Office customisation"]],
-	}
+	{"dt": "Custom Field",    "filters": [["module", "=", "Office customisation"]]},
+	{"dt": "Property Setter", "filters": [["module", "=", "Office customisation"]]},
+	{"dt": "Client Script",   "filters": [["module", "=", "Office customisation"]]},
+	{"dt": "Server Script",   "filters": [["module", "=", "Office customisation"]]},
+	{"dt": "Web Page",        "filters": [["module", "=", "Office customisation"]]},
 ]
 
 # Auto-clear old notification logs (keep 90 days)

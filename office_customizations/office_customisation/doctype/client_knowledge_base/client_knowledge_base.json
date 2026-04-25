@@ -1,0 +1,697 @@
+{
+ "actions": [],
+ "allow_auto_repeat": 0,
+ "allow_copy": 0,
+ "allow_events_in_timeline": 0,
+ "allow_guest_to_view": 0,
+ "allow_import": 0,
+ "allow_rename": 1,
+ "autoname": "field:project",
+ "beta": 0,
+ "color": null,
+ "custom": 0,
+ "default_email_template": null,
+ "default_print_format": null,
+ "default_view": null,
+ "description": null,
+ "doctype": "DocType",
+ "document_type": "",
+ "documentation": null,
+ "editable_grid": 1,
+ "email_append_to": 0,
+ "engine": "InnoDB",
+ "fields": [
+  {
+   "label": "Entity Profile",
+   "fieldtype": "Section Break",
+   "fieldname": "entity_profile_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Project",
+   "fieldtype": "Link",
+   "fieldname": "project",
+   "reqd": 1,
+   "options": "Project",
+   "in_list_view": 1,
+   "unique": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Project Name",
+   "fieldtype": "Data",
+   "fieldname": "project_name",
+   "reqd": 0,
+   "fetch_from": "project.project_name",
+   "in_list_view": 1,
+   "read_only": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Entity Type",
+   "fieldtype": "Select",
+   "fieldname": "entity_type",
+   "reqd": 0,
+   "options": "\nPvt Ltd\nLLP\nPartnership\nProprietorship\nHUF\nTrust\nAOP\nSection 8 Company\nOne Person Company",
+   "in_list_view": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": null,
+   "fieldtype": "Column Break",
+   "fieldname": "column_break_ep1",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Legal Name",
+   "fieldtype": "Data",
+   "fieldname": "legal_name",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Industry",
+   "fieldtype": "Data",
+   "fieldname": "industry",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "PAN",
+   "fieldtype": "Data",
+   "fieldname": "pan",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": null,
+   "fieldtype": "Column Break",
+   "fieldname": "column_break_ep2",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "CIN",
+   "fieldtype": "Data",
+   "fieldname": "cin",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Incorporation Date",
+   "fieldtype": "Date",
+   "fieldname": "incorporation_date",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Registered Address",
+   "fieldtype": "Small Text",
+   "fieldname": "registered_address",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "GSTINs",
+   "fieldtype": "Section Break",
+   "fieldname": "gstin_section",
+   "reqd": 0,
+   "collapsible": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "GSTIN(s)",
+   "fieldtype": "Small Text",
+   "fieldname": "gstins",
+   "reqd": 0,
+   "columns": 0,
+   "description": "One per line",
+   "doctype": "DocField"
+  },
+  {
+   "label": "Capital Structure",
+   "fieldtype": "Section Break",
+   "fieldname": "capital_section",
+   "reqd": 0,
+   "collapsible": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Authorized Capital",
+   "fieldtype": "Currency",
+   "fieldname": "authorized_capital",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": null,
+   "fieldtype": "Column Break",
+   "fieldname": "column_break_cap",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Paid-up Capital",
+   "fieldtype": "Currency",
+   "fieldname": "paid_up_capital",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Business Model",
+   "fieldtype": "Section Break",
+   "fieldname": "business_model_section",
+   "reqd": 0,
+   "collapsible": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Business Model Summary",
+   "fieldtype": "Text Editor",
+   "fieldname": "business_model_summary",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Directors / Partners / Promoters",
+   "fieldtype": "Section Break",
+   "fieldname": "directors_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Directors / Partners",
+   "fieldtype": "Table",
+   "fieldname": "directors",
+   "reqd": 0,
+   "options": "KB Director",
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Shareholding Pattern",
+   "fieldtype": "Section Break",
+   "fieldname": "shareholding_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Shareholders",
+   "fieldtype": "Table",
+   "fieldname": "shareholders",
+   "reqd": 0,
+   "options": "KB Shareholder",
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Engagement Details",
+   "fieldtype": "Section Break",
+   "fieldname": "engagement_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Engagement Start Date",
+   "fieldtype": "Date",
+   "fieldname": "engagement_start_date",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Billing Frequency",
+   "fieldtype": "Select",
+   "fieldname": "billing_frequency",
+   "reqd": 0,
+   "options": "\nMonthly\nQuarterly\nHalf-Yearly\nAnnually\nPer Assignment\nRetainer",
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": null,
+   "fieldtype": "Column Break",
+   "fieldname": "column_break_eng",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Fee Structure Notes",
+   "fieldtype": "Small Text",
+   "fieldname": "fee_structure_notes",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Services Provided",
+   "fieldtype": "Section Break",
+   "fieldname": "services_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Service Lines",
+   "fieldtype": "Table",
+   "fieldname": "services",
+   "reqd": 0,
+   "options": "KB Service Line",
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Client POCs",
+   "fieldtype": "Section Break",
+   "fieldname": "pocs_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Key Contacts",
+   "fieldtype": "Table",
+   "fieldname": "client_pocs",
+   "reqd": 0,
+   "options": "KB Client POC",
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Financial Snapshot",
+   "fieldtype": "Section Break",
+   "fieldname": "financial_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Latest FY",
+   "fieldtype": "Data",
+   "fieldname": "latest_fy",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Turnover",
+   "fieldtype": "Currency",
+   "fieldname": "latest_turnover",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": null,
+   "fieldtype": "Column Break",
+   "fieldname": "column_break_fin",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Profit / (Loss)",
+   "fieldtype": "Currency",
+   "fieldname": "latest_profit",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Key Financial Observations",
+   "fieldtype": "Text Editor",
+   "fieldname": "financial_observations",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Tax Positions",
+   "fieldtype": "Section Break",
+   "fieldname": "tax_positions_section",
+   "reqd": 0,
+   "collapsible": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Tax Positions Taken",
+   "fieldtype": "Text Editor",
+   "fieldname": "tax_positions",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Assessments, Notices & Litigation",
+   "fieldtype": "Section Break",
+   "fieldname": "litigation_section",
+   "reqd": 0,
+   "collapsible": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Pending Assessments / Notices / Litigation",
+   "fieldtype": "Text Editor",
+   "fieldname": "pending_litigation",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Audit Observations",
+   "fieldtype": "Text Editor",
+   "fieldname": "audit_observations",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Compliance Status",
+   "fieldtype": "Section Break",
+   "fieldname": "compliance_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "GST Registration Type",
+   "fieldtype": "Select",
+   "fieldname": "gst_registration_type",
+   "reqd": 0,
+   "options": "\nRegular\nComposition\nUnregistered\nISD\nSEZ\nCasual Taxable Person\nNRTP",
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": null,
+   "fieldtype": "Column Break",
+   "fieldname": "column_break_comp",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "ITR Filing Status Notes",
+   "fieldtype": "Small Text",
+   "fieldname": "itr_filing_status",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "ROC & Other Compliance",
+   "fieldtype": "Section Break",
+   "fieldname": "roc_compliance_section",
+   "reqd": 0,
+   "collapsible": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "ROC Compliance Status",
+   "fieldtype": "Text Editor",
+   "fieldname": "roc_compliance_status",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Defaults / Concerns",
+   "fieldtype": "Text Editor",
+   "fieldname": "compliance_defaults",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Strategic Context",
+   "fieldtype": "Section Break",
+   "fieldname": "strategic_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Business Stage",
+   "fieldtype": "Select",
+   "fieldname": "business_stage",
+   "reqd": 0,
+   "options": "\nStartup - Pre Revenue\nStartup - Revenue Stage\nGrowth\nMature\nTurnaround\nWinding Down",
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": null,
+   "fieldtype": "Column Break",
+   "fieldname": "column_break_strat",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Funding Details",
+   "fieldtype": "Small Text",
+   "fieldname": "funding_details",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Challenges & Advisory",
+   "fieldtype": "Section Break",
+   "fieldname": "challenges_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Key Business Challenges",
+   "fieldtype": "Text Editor",
+   "fieldname": "key_business_challenges",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Advisory Given (Running Log)",
+   "fieldtype": "Text Editor",
+   "fieldname": "advisory_log",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Open Matters & Risks",
+   "fieldtype": "Section Break",
+   "fieldname": "open_matters_section",
+   "reqd": 0,
+   "collapsible": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Open Matters / Pending Decisions",
+   "fieldtype": "Text Editor",
+   "fieldname": "open_matters",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Risks Flagged",
+   "fieldtype": "Text Editor",
+   "fieldname": "risks_flagged",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Relationship Intelligence",
+   "fieldtype": "Section Break",
+   "fieldname": "relationship_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Decision Maker",
+   "fieldtype": "Data",
+   "fieldname": "decision_maker",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Decision-Making Style",
+   "fieldtype": "Small Text",
+   "fieldname": "decision_style",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": null,
+   "fieldtype": "Column Break",
+   "fieldname": "column_break_rel",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Communication Preferences",
+   "fieldtype": "Small Text",
+   "fieldname": "communication_preferences",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Sensitive Topics & Internal Notes",
+   "fieldtype": "Section Break",
+   "fieldname": "sensitive_topics_section",
+   "reqd": 0,
+   "collapsible": 1,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Sensitive Topics / Red Flags",
+   "fieldtype": "Text Editor",
+   "fieldname": "sensitive_topics",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Internal Notes",
+   "fieldtype": "Text Editor",
+   "fieldname": "internal_notes",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Review Tracking",
+   "fieldtype": "Section Break",
+   "fieldname": "meta_section",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Last Reviewed On",
+   "fieldtype": "Date",
+   "fieldname": "last_reviewed_on",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": null,
+   "fieldtype": "Column Break",
+   "fieldname": "column_break_meta",
+   "reqd": 0,
+   "columns": 0,
+   "doctype": "DocField"
+  },
+  {
+   "label": "Last Reviewed By",
+   "fieldtype": "Link",
+   "fieldname": "last_reviewed_by",
+   "reqd": 0,
+   "options": "User",
+   "columns": 0,
+   "doctype": "DocField"
+  }
+ ],
+ "force_re_route_to_default_view": 0,
+ "grid_page_length": 50,
+ "has_web_view": 0,
+ "hide_toolbar": 0,
+ "icon": null,
+ "image_field": null,
+ "in_create": 0,
+ "index_web_pages_for_search": 1,
+ "is_calendar_and_gantt": 0,
+ "is_published_field": null,
+ "is_submittable": 0,
+ "is_tree": 0,
+ "is_virtual": 0,
+ "issingle": 0,
+ "istable": 0,
+ "links": [],
+ "make_attachments_public": 0,
+ "max_attachments": 0,
+ "module": "Office customisation",
+ "name": "Client Knowledge Base",
+ "naming_rule": "By fieldname",
+ "nsm_parent_field": null,
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1,
+   "print": 1,
+   "email": 1,
+   "doctype": "DocPerm"
+  }
+ ],
+ "protect_attached_files": 0,
+ "queue_in_background": 0,
+ "quick_entry": 0,
+ "read_only": 0,
+ "recipient_account_field": null,
+ "restrict_to_domain": null,
+ "route": null,
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": null,
+ "sender_field": null,
+ "sender_name_field": null,
+ "show_name_in_global_search": 0,
+ "show_preview_popup": 0,
+ "show_title_field_in_link": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "subject_field": null,
+ "timeline_field": null,
+ "title_field": "project_name",
+ "track_changes": 1,
+ "track_seen": 0,
+ "track_views": 0,
+ "translated_doctype": 0,
+ "website_search_field": null
+}
