@@ -1,0 +1,20 @@
+{
+ "actions": [],
+ "creation": "2026-04-26 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": ["system"],
+ "fields": [
+  {"fieldname": "system", "fieldtype": "Link", "label": "System", "options": "SOP System Option", "in_list_view": 1, "reqd": 1}
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-26 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Office customisation",
+ "name": "SOP Engagement System",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

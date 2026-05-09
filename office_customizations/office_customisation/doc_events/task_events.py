@@ -85,42 +85,51 @@ def on_update(doc, method):
 
 
 def after_insert(doc, method):
-    """Fires after a new Task is created."""
-    from office_customizations.office_customisation.automation.notification_engine import (
-        send_direct,
+    """Fires after a new Task is created.
+
+    If the task has no assignee, auto-assign it to the creator (doc.owner).
+    Defers via the short queue so that any explicit assign_to.add follow-up
+    (separate API request from the bot or UI) has a chance to land first.
+    The deferred job re-checks for any ToDo and skips if one already exists.
+    """
+    creator = doc.owner
+    if not creator or creator == "Administrator":
+        return
+
+    frappe.enqueue(
+        "office_customizations.office_customisation.doc_events.task_events._auto_assign_to_creator_deferred",
+        queue="short",
+        task_name=doc.name,
+        creator=creator,
     )
 
-    # ── Task created with no assignee → notify Raghav ──────────────────────
-    assigned = _parse_assign(doc.get("_assign"))
-    if not assigned:
-        recipient = MANAGER_USER
 
-        site_url = frappe.utils.get_url()
-        task_link = "{0}/app/task/{1}".format(site_url, doc.name)
-        creator_name = frappe.db.get_value("User", frappe.session.user, "full_name") or frappe.session.user
-
-        send_direct(
-            recipients=[recipient],
-            subject="Unassigned Task Created: {0}".format(doc.subject),
-            message=(
-                "<b>New task created without assignee</b><br><br>"
-                "Task: <a href='{0}'>{1}</a><br>"
-                "Project: {2}<br>"
-                "Priority: {3}<br>"
-                "Created by: {4}<br><br>"
-                "Please assign this task to a team member.<br><br>"
-                "<i>— SLV Automation</i>"
-            ).format(
-                task_link, doc.subject,
-                doc.project or "N/A",
-                doc.priority,
-                creator_name,
-            ),
-            channel="ERPNext",
-            reference_doctype="Task",
-            reference_name=doc.name,
-            event_type="Task Unassigned",
-        )
+def _auto_assign_to_creator_deferred(task_name, creator):
+    """Run in a background job. Skip if any ToDo exists for the task."""
+    import time
+    time.sleep(2)
+    if not frappe.db.exists("Task", task_name):
+        return
+    has_todo = frappe.db.exists("ToDo", {
+        "reference_type": "Task",
+        "reference_name": task_name,
+    })
+    if has_todo:
+        return
+    try:
+        from frappe.desk.form.assign_to import add as assign_add
+        # Run as Administrator so the assignment can be created on docs
+        # owned by users without write-access on ToDo for arbitrary users.
+        frappe.set_user("Administrator")
+        subject = frappe.db.get_value("Task", task_name, "subject") or task_name
+        assign_add({
+            "doctype": "Task",
+            "name": task_name,
+            "assign_to": [creator],
+            "description": subject,
+        })
+    except Exception:
+        frappe.log_error(frappe.get_traceback(), "Task auto-assign-to-creator failed")
 
 
 def _notify_pending_review(doc):

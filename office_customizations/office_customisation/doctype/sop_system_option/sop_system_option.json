@@ -1,0 +1,25 @@
+{
+ "actions": [],
+ "autoname": "field:system_name",
+ "creation": "2026-04-26 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": ["system_name", "category", "is_active"],
+ "fields": [
+  {"fieldname": "system_name",   "fieldtype": "Data",     "label": "System name",  "in_list_view": 1, "reqd": 1, "unique": 1},
+  {"fieldname": "category",      "fieldtype": "Select",   "label": "Category",     "in_list_view": 1,
+   "options": "Accounting\nERP\nCRM\nSpreadsheet\nMessaging\nManual / Paper\nCustom\nOther"},
+  {"fieldname": "is_active",     "fieldtype": "Check",    "label": "Active",       "default": 1, "in_list_view": 1}
+ ],
+ "links": [],
+ "modified": "2026-04-26 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Office customisation",
+ "name": "SOP System Option",
+ "owner": "Administrator",
+ "permissions": [{"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}],
+ "sort_field": "category",
+ "sort_order": "ASC",
+ "title_field": "system_name",
+ "track_changes": 1
+}

@@ -1,0 +1,52 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<style>
+  /* Hide all Frappe page chrome */
+  .web-footer, .navbar, .page-header, .page-header-wrapper { display: none !important; }
+  .page-content { padding: 0 !important; margin: 0 !important; }
+  .main-section { padding: 0 !important; }
+  .container { max-width: 100% !important; padding: 0 !important; }
+  body { background: #F9FAFB; }
+
+  /* Full viewport height */
+  #task-dashboard-root {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* Loading state while React boots */
+  #task-dashboard-root:empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #task-dashboard-root:empty::after {
+    content: '';
+    width: 32px;
+    height: 32px;
+    border: 3px solid #2490EF;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="stylesheet" href="/assets/office_customizations/js/task_dashboard/index.css">
+
+<div id="task-dashboard-root"></div>
+
+<script>
+  // Pass Frappe session data to React
+  window.csrf_token = '{{ frappe.session.csrf_token }}';
+  window.frappe_user = '{{ frappe.session.user }}';
+</script>
+
+<script src="/assets/office_customizations/js/task_dashboard/index.js"></script>
+{% endblock %}

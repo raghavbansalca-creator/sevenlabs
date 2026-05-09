@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "creation": "2026-04-03 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "meta_phone_number_id",
+  "meta_access_token",
+  "sec_break_behavior",
+  "auto_create_lead",
+  "auto_log_communication",
+  "sec_break_telegram",
+  "telegram_enabled",
+  "telegram_bot_token"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "WhatsApp Integration Enabled"
+  },
+  {
+   "fieldname": "meta_phone_number_id",
+   "fieldtype": "Data",
+   "label": "Meta Phone Number ID",
+   "description": "Phone Number ID from Meta Business → WhatsApp → API Setup",
+   "depends_on": "eval:doc.enabled"
+  },
+  {
+   "fieldname": "meta_access_token",
+   "fieldtype": "Password",
+   "label": "Meta Access Token",
+   "description": "Permanent system user token for sending messages via Meta API",
+   "depends_on": "eval:doc.enabled"
+  },
+  {
+   "fieldname": "sec_break_behavior",
+   "fieldtype": "Section Break",
+   "label": "Automation Behavior"
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_create_lead",
+   "fieldtype": "Check",
+   "label": "Auto-create Lead for Unknown Numbers",
+   "description": "If the sender's phone number is not found in Contacts, automatically create a Lead"
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_log_communication",
+   "fieldtype": "Check",
+   "label": "Auto-log Communication",
+   "description": "Log each WhatsApp message as a Communication against the linked Contact/Lead/Customer"
+  },
+  {
+   "fieldname": "sec_break_telegram",
+   "fieldtype": "Section Break",
+   "label": "Telegram Integration"
+  },
+  {
+   "default": "1",
+   "fieldname": "telegram_enabled",
+   "fieldtype": "Check",
+   "label": "Telegram Integration Enabled"
+  },
+  {
+   "fieldname": "telegram_bot_token",
+   "fieldtype": "Password",
+   "label": "Telegram Bot Token",
+   "description": "Token from @BotFather — starts with a number followed by a colon",
+   "depends_on": "eval:doc.telegram_enabled"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-04-03 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Office customisation",
+ "name": "WhatsApp Settings",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

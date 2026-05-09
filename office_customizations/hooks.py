@@ -39,11 +39,11 @@ default_log_clearing_doctypes = {
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/office_customizations/css/office_customizations.css"
-# app_include_js = "/assets/office_customizations/js/office_customizations.js"
+app_include_js = "/assets/office_customizations/js/quick_task.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/office_customizations/css/office_customizations.css"
-# web_include_js = "/assets/office_customizations/js/office_customizations.js"
+web_include_js = "/assets/office_customizations/js/quick_task.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "office_customizations/public/scss/website"
@@ -56,7 +56,11 @@ default_log_clearing_doctypes = {
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-doctype_js = {"Work Order" : "public/js/work_order.js"}
+doctype_js = {
+	"Work Order": "public/js/work_order.js",
+	"Project": "public/js/project_task_board.js",
+	"SOP Discovery Engagement": "public/js/sop_discovery_engagement.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -154,6 +158,8 @@ doc_events = {
 
 # Scheduled Tasks
 # ---------------
+
+after_migrate = "office_customizations.office_customisation.setup.seed_sop_options.run"
 
 scheduler_events = {
 	"cron": {

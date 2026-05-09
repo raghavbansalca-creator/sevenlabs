@@ -1,0 +1,25 @@
+{
+ "actions": [],
+ "autoname": "field:module_code",
+ "creation": "2026-04-26 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": ["module_code", "module_name", "typical_for", "is_active"],
+ "fields": [
+  {"fieldname": "module_code",   "fieldtype": "Data",       "label": "Module code",  "in_list_view": 1, "reqd": 1, "unique": 1, "description": "e.g. 05-Purchase"},
+  {"fieldname": "module_name",   "fieldtype": "Data",       "label": "Module name",  "in_list_view": 1, "reqd": 1},
+  {"fieldname": "typical_for",   "fieldtype": "Small Text", "label": "Typical for",  "description": "Industries this module typically applies to (comma-separated)"},
+  {"fieldname": "is_active",     "fieldtype": "Check",      "label": "Active",       "default": 1, "in_list_view": 1}
+ ],
+ "links": [],
+ "modified": "2026-04-26 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Office customisation",
+ "name": "SOP Module Option",
+ "owner": "Administrator",
+ "permissions": [{"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}],
+ "sort_field": "module_code",
+ "sort_order": "ASC",
+ "title_field": "module_name",
+ "track_changes": 1
+}
